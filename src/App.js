@@ -1,0 +1,56 @@
+
+
+import { Contacts } from './components/ContactList';
+import { Form } from './components/Form';
+import { Filter } from './components/Filter';
+import style from './components/phonebook.module.css';
+import {  getFilter }  from './redux/fiter/selector';
+import { useSelector } from 'react-redux';
+import { useFetchContactsQuery } from './redux/contactApi';
+
+
+
+
+function App() {
+
+const {data}= useFetchContactsQuery()
+const filter = useSelector(getFilter)
+
+const findContacts = () => { 
+
+const normalizedFilter = filter.toLowerCase()
+  const visibleContacts = data.filter(contact => contact.name.toLowerCase().includes(normalizedFilter) )
+return visibleContacts 
+  
+}
+
+
+
+   return (
+     
+<>
+
+<Form contacts={data} 
+/>
+
+ <h2 className={style.contact}>Contacts</h2>
+
+<Filter 
+/>
+
+
+
+
+{data && <Contacts 
+        contacts={findContacts()}
+
+
+/>  } 
+
+</>
+)
+}
+
+
+export default App;
+
