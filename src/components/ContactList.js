@@ -1,17 +1,17 @@
 
 import PropTypes from "prop-types"
 
-import { useDeleteContactMutation } from '../redux/contactApi';
+
 import { ElementContacts } from "./ElementContacts"
 
 import style from './phonebook.module.css';
 
 
-export const Contacts = ({ contacts }) => {
-    const [deleteContact] = useDeleteContactMutation()
+export const Contacts = ({ contacts , onDeleteContact }) => {
+   
     return (
         <ul>
-            {contacts.map(({ name, id, number }) => (<li className={style.list} key={id}><ElementContacts name={name} number={number} id={id} func={ deleteContact }/></li>) )}
+            {contacts.map(({ name, id, number }) => (<li className={style.list} key={id}><ElementContacts name={name} number={number} id={id} func={onDeleteContact }/></li>) )}
         </ul>
     )
 }

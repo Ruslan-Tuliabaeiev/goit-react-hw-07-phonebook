@@ -6,14 +6,14 @@ import { Filter } from './components/Filter';
 import style from './components/phonebook.module.css';
 import {  getFilter }  from './redux/fiter/selector';
 import { useSelector } from 'react-redux';
-import { useFetchContactsQuery } from './redux/contactApi';
+import { useFetchContactsQuery, useDeleteContactMutation} from './redux/contactApi';
 
 
 
 
 function App() {
-
-const {data}= useFetchContactsQuery()
+  const [deleteContact] = useDeleteContactMutation()
+const {data, isFetching}= useFetchContactsQuery()
 const filter = useSelector(getFilter)
 
 const findContacts = () => { 
@@ -39,13 +39,14 @@ return visibleContacts
 />
 
 
+{isFetching && <h1>loading...</h1>}
+
+       {data && (< Contacts  
+         onDeleteContact={deleteContact}
+        contacts={findContacts()}/>)
 
 
-{data && <Contacts 
-        contacts={findContacts()}
-
-
-/>  } 
+  } 
 
 </>
 )

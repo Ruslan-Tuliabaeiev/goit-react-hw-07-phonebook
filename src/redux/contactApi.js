@@ -1,25 +1,26 @@
 //https://61f9862469307000176f72e5.mockapi.io/api/1v/:endpoint
 // https://61f96a9f69307000176f7253.mockapi.io/:endpoint
-import {createApi, fetchBaseQuery}  from '@reduxjs/toolkit/query/react'
+ import {createApi, fetchBaseQuery}  from '@reduxjs/toolkit/query/react'
 
 
 export const contactApi = createApi({
     reducerPath: 'contactApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'https://61f9862469307000176f72e5.mockapi.io/api/1v/' }),
+        baseUrl: 'https://61f99add69307000176f7361.mockapi.io/api/v1/' }),
     
     tagTypes: ['CONTACT'],
-    endpoints: (builder) => ({
-        fetchContacts: builder.query  ({
+
+    endpoints: builder => ({
+        fetchContacts: builder.query({
             query: () => `/contacts`,
             providesTags: ['CONTACT'],
            
         }) ,
         createContact: builder.mutation({ query: newContact  => ({
-    url: `/contact`,
+    url: `/contacts`,
     method: 'POST',
             body: {
-                name: newContact.name, 
+                name: newContact.name,
                 number: newContact.number,
 
     },
@@ -29,11 +30,15 @@ export const contactApi = createApi({
         }),
         deleteContact: builder.mutation({
             query: contactId => ({
-                url: `/contact/${contactId}`,
+                url: `./contacts/${contactId}`,
                 method: 'DELETE',
         
             }),
+            invalidatesTags: ['CONTACT'],
 })
 })
 })
-export const { useFetchContactsQuery, useCreateContactMutation, useDeleteContactMutation} = contactApi 
+export const { useFetchContactsQuery, useCreateContactMutation, useDeleteContactMutation} = contactApi
+
+
+

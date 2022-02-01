@@ -1,13 +1,13 @@
 
 import { useState } from 'react';
 import style from './phonebook.module.css';
-import { nanoid } from 'nanoid'
+
 import PropTypes from 'prop-types';
 
 
 import { useCreateContactMutation } from '../redux/contactApi';
 //
-const id = nanoid();
+
 export function Form({contacts}) {
 const [name, setName] = useState('');
 const [number, setNumber] = useState('');
@@ -33,12 +33,13 @@ default:
 };
 const handleSubmit = (event) => {
   event.preventDefault()
+  console.log(name , number);
   const findName = contacts.find(contact => contact.name === name)
   if (findName) {
     alert('This name is already in the phone book')
   } else {
-    const contact = { name, number, id }
-    createContact(contact)
+    
+    createContact({ name, number })
   }
 
 reset();
@@ -105,5 +106,5 @@ value={name}
 };
 
 Form.prototype = { 
-  contacts:PropTypes.array.isRequired, 
+  contacts:PropTypes.array, 
 }
